@@ -23,14 +23,35 @@ import { NotImplementedError } from '../extensions/index.js';
  *  [1, 1, 1]
  * ]
  */
-export default function minesweeper(/*matrix*/) {
-  throw new NotImplementedError('Not implemented');
-  // const res = [];
+export default function minesweeper(matrix) {
+  // throw new NotImplementedError('Not implemented');
+  const res = [];
 
-  // for (let i = 0; i < matrix.length; i++) {
-  //   res.push([]);
-  //   for(let j=0; j<matrix[i].length;j++) {
+  for (let i = 0; i < matrix.length; i++) {
+    res.push([]);
 
-  //   }
-  // }
+    for (let j = 0; j < matrix[i].length; j++) {
+      let count = 0;
+
+      if (i - 1 >= 0 && matrix[i - 1][j]) count++;
+      if (j - 1 >= 0 && i - 1 >= 0 && matrix[i - 1][j - 1]) count++;
+      if (j - 1 >= 0 && matrix[i][j - 1]) count++;
+      if (i + 1 <= matrix.length - 1 && matrix[i + 1][j]) count++;
+      if (
+        j + 1 <= matrix[i].length - 1 &&
+        i + 1 <= matrix.length - 1 &&
+        matrix[i + 1][j + 1]
+      )
+        count++;
+      if (j + 1 <= matrix[i].length - 1 && matrix[i][j + 1]) count++;
+      if (j + 1 <= matrix[i].length - 1 && i - 1 >= 0 && matrix[i - 1][j + 1])
+        count++;
+      if (i + 1 <= matrix.length - 1 && j - 1 >= 0 && matrix[i + 1][j - 1])
+        count++;
+
+      res[i].push(count);
+    }
+  }
+
+  return res;
 }
